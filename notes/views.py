@@ -1,7 +1,13 @@
 from django.shortcuts import render
 from django.http import Http404
 from .models import Notes
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
+
+
+class NotesCreateView(CreateView):
+    model = Notes
+    fields = ["title", "text"]
+    success_url = "/smart/notes"
 
 
 class NotesListView(ListView):
@@ -13,6 +19,7 @@ class NotesListView(ListView):
 class NotesDetailView(DetailView):
     model = Notes
     context_object_name = "note"
+
 
 def detail(request, pk):
     try:
